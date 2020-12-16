@@ -2,12 +2,17 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"log"
 )
 
 func main() {
 	r := gin.Default()
 	handleRoutes(r)
-	r.Run()
+
+	err := r.Run()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func handleRoutes(r *gin.Engine) {
