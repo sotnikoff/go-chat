@@ -9,7 +9,7 @@ import (
 
 // Specification ...
 type Specification struct {
-	Port int `required:"true"`
+	Port int `required:"true" default:"8080"`
 }
 
 func main() {
