@@ -1,15 +1,28 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/kelseyhightower/envconfig"
 	"log"
 )
 
+// Specification ...
+type Specification struct {
+	Port int `required:"true" default:"8080"`
+}
+
 func main() {
+	var s Specification
+	err := envconfig.Process("chat", &s)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
 	r := gin.Default()
 	handleRoutes(r)
 
-	err := r.Run()
+	err = r.Run(fmt.Sprint(":", s.Port))
 	if err != nil {
 		log.Fatal(err)
 	}
