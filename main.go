@@ -9,7 +9,7 @@ import (
 
 // Specification ...
 type Specification struct {
-	Port int
+	Port int `required:"true"`
 }
 
 func main() {
@@ -17,10 +17,6 @@ func main() {
 	err := envconfig.Process("chat", &s)
 	if err != nil {
 		log.Fatal(err.Error())
-	}
-
-	if s.Port == 0 {
-		log.Fatal("Please set the CHAT_PORT env variable!")
 	}
 
 	r := gin.Default()
