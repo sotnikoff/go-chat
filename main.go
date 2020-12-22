@@ -15,7 +15,8 @@ import (
 
 // Specification ...
 type Specification struct {
-	Port int `required:"true" default:"8080"`
+	Port    int `required:"true" default:"8080"`
+	Timeout int `required:"true" default:"5"`
 }
 
 func main() {
@@ -45,7 +46,7 @@ func main() {
 	<-quit
 	log.Println("Shutting down server...")
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(s.Timeout)*time.Second)
 	defer cancel()
 	if err := srv.Shutdown(ctx); err != nil {
 		log.Fatal("Server forced to shutdown:", err)
