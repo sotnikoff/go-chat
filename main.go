@@ -57,10 +57,87 @@ func main() {
 
 func handleRoutes(r *gin.Engine) {
 	r.GET("/", indexPage)
+	messages := r.Group("/messages")
+	{
+		messages.GET("/", getMessages)
+		messages.POST("/", sendMessage)
+		messages.PUT("/:id", editMessage)
+		messages.DELETE("/:id", deleteMessage)
+	}
+
+	rooms := r.Group("/rooms")
+	{
+		rooms.GET("/", getRooms)
+		rooms.POST("/", createRoom)
+		rooms.POST("/:id/invite_user", inviteUser)
+		rooms.POST("/:id/remove_user", removeUser)
+		rooms.PUT("/:id", editRoom)
+		rooms.DELETE("/:id", deleteRoom)
+	}
 }
 
 func indexPage(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "Hello world!",
+	})
+}
+
+func getMessages(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "Messages",
+	})
+}
+
+func sendMessage(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "Send message",
+	})
+}
+
+func editMessage(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "Send message",
+	})
+}
+
+func deleteMessage(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "Delete Message",
+	})
+}
+
+func getRooms(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "Room list",
+	})
+}
+
+func editRoom(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "Room edit",
+	})
+}
+
+func createRoom(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "Room create",
+	})
+}
+
+func deleteRoom(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "Room delete",
+	})
+}
+
+func inviteUser(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "User invite to room",
+	})
+}
+
+func removeUser(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "User remove from room",
 	})
 }
