@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/kelseyhightower/envconfig"
+	"github.com/sotnikoff/go-chat/internal/messages"
+	// "github.com/sotnikoff/go-chat/internal/rooms"
 	"log"
 	"net/http"
 	"os"
@@ -57,6 +59,7 @@ func main() {
 
 func handleRoutes(r *gin.Engine) {
 	r.GET("/", indexPage)
+	messages.NewHTTPProvider(gin.Default())
 }
 
 func indexPage(c *gin.Context) {
