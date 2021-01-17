@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/sotnikoff/go-chat/internal/messages"
-	"github.com/sotnikoff/go-chat/internal/rooms"
+	// "github.com/sotnikoff/go-chat/internal/rooms"
 	"log"
 	"net/http"
 	"os"
@@ -59,23 +59,7 @@ func main() {
 
 func handleRoutes(r *gin.Engine) {
 	r.GET("/", indexPage)
-	msgGroup := r.Group("/messages")
-	{
-		msgGroup.GET("/", messages.GetMessages)
-		msgGroup.POST("/", messages.SendMessage)
-		msgGroup.PUT("/:id", messages.EditMessage)
-		msgGroup.DELETE("/:id", messages.DeleteMessage)
-	}
-
-	roomsGroup := r.Group("/rooms")
-	{
-		roomsGroup.GET("/", rooms.GetRooms)
-		roomsGroup.POST("/", rooms.CreateRoom)
-		roomsGroup.POST("/:id/invite_user", rooms.InviteUser)
-		roomsGroup.POST("/:id/remove_user", rooms.RemoveUser)
-		roomsGroup.PUT("/:id", rooms.EditRoom)
-		roomsGroup.DELETE("/:id", rooms.DeleteRoom)
-	}
+	messages.NewHTTPProvider(gin.Default())
 }
 
 func indexPage(c *gin.Context) {
